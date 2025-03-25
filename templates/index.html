@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang ="en">
+    <head>
+    <title> Youtube Video & audio downloader </title>
+   
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  
+    
+
+</head>
+<body>
+    <h2>Youtube video & audio downloader</h2>
+    <input type="text" id="video-url" placeholder="Enter Youtube URL">
+    <select id="format">
+        <option value="mp4">Video (MP4)</option>
+        <option value="mp3">Audio (MP3)</option>
+    </select>
+    
+    <input type="text" id="start-time" placeholder="Start Time (hh:mm:ss)">
+    <input type="text" id="end-time" placeholder="End Time (hh:mm:ss)">
+ 
+    <button onclick="downloadVideo()">Download</button>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+    <div class="video-container">
+        <video autoplay loop muted playsinline>
+            <source src="{{ url_for('static', filename='videos/background.mp4') }}" type="video/mp4">
+        </video>
+    </div>
+
+</body>
+</html>
