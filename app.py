@@ -14,6 +14,11 @@ os.environ["PATH"] += os.pathsep + os.path.dirname(FFMPEG_PATH)
 DOWNLOAD_FOLDER = "downloads"
 os.makedirs(DOWNLOAD_FOLDER, exist_ok=True)
 
+cookies_content = os.getenv("COOKIES_CONTENT")  # ENV Variable se cookies load karo
+if cookies_content:
+    with open("cookies.txt", "w") as f:
+        f.write(cookies_content)
+        
 @app.route('/')
 def index():
     return render_template('index.html')  # Ye HTML frontend ko load karega
@@ -31,7 +36,8 @@ def download():
     
     ydl_opts = {
         'outtmpl': f'{DOWNLOAD_FOLDER}/%(title)s.%(ext)s',
-        'ffmpeg_location': FFMPEG_PATH 
+        'ffmpeg_location': FFMPEG_PATH,
+        'cookies': 'cookies.txt'
     }
 
     if format_type == "mp3":
@@ -65,6 +71,7 @@ def download():
             subprocess.run(trim_cmd, check=True)  # Run FFMPEG trimming
             filename = trimmed_filename  # S
 
+   
 
     return send_file(filename, as_attachment=True)
 
